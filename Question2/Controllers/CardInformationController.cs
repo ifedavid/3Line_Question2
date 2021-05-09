@@ -6,14 +6,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Play_Web.Controllers
+namespace Question2.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class CardInformationController : ControllerBase
     {
 
-        //Dummy card data to help with my data structure and testing
+        //Dummy card data to help with my response data structure and testing
         List<CardData> CardDatas = new List<CardData>()
         {
             new CardData
@@ -35,7 +35,7 @@ namespace Play_Web.Controllers
             }
         };
 
-        //Dummy card data to help with my data structure and testing
+        //Dummy card data to help with my response data structure and testing
         List<Statistics> StatsData = new List<Statistics>()
         {
             new Statistics

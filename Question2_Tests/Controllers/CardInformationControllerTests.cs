@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Play_Web.Controllers.Tests
+namespace Question2.Controllers.Tests
 {
     [TestClass()]
-    public class WeatherForecastControllerTests
+    public class CardInformationControllerTests
     {
         CardInformationController controller = new CardInformationController();
         AuthenticationData authentData = new AuthenticationData

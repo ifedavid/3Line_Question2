@@ -113,6 +113,8 @@ namespace Question2.Controllers
             {
                 if (limit == 0) limit = StatsData.Count;
 
+                if (limit > StatsData.Count) limit = StatsData.Count;
+
                 var statisticData = StatsData.GetRange(start, limit).OrderByDescending(c => c.NumberOfHits).ToList();
 
                 Dictionary<string, int> payload = new Dictionary<string, int>();

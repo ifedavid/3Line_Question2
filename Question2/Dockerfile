@@ -16,4 +16,7 @@ RUN dotnet publish "Question2.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT [ "dotnet", "Question2.dll" ]
+#ENTRYPOINT [ "dotnet", "Question2.dll" ]
+
+#Using this line for heroku
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet Question2.dll

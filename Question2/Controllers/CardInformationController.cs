@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Play_Web.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -75,15 +76,22 @@ namespace Question2.Controllers
             },
         };
 
+        Auth myClass = new Auth();
 
 
         [Route("card-scheme/verify/{cardNumber}")]
         [HttpGet]
-        public async Task<IActionResult> VerifyCard([FromHeader] AuthenticationData authenticationData, string cardNumber)
+        public async Task<IActionResult> VerifyCard([FromHeader] AuthenticationData authData, string cardNumber)
         {
             try
             {
-                if(cardNumber == null)
+
+                var authResult = myClass.AuthenticateHeader(authData);
+
+                if (!authResult.Item1) return Unauthorized(new { authResult.Item1, authResult.Item2 });
+
+
+                if (cardNumber == null)
                 {
                     return BadRequest(new { Error = "Please input card number" });
                 }
@@ -126,7 +134,7 @@ namespace Question2.Controllers
 
                 payload.OrderByDescending(c => c.Value);
 
-                return Ok(new { success = "true", start = start, limit = limit, size = StatsData.Count,payload });
+                return Ok(new { success = "true", start = start, limit = limit, size = StatsData.Count, payload });
             }
             catch(Exception ex)
             {

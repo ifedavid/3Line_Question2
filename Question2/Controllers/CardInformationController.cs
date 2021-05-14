@@ -115,10 +115,15 @@ namespace Question2.Controllers
 
         [Route("card-scheme/stats")]
         [HttpGet]
-        public async Task<IActionResult> HitCounts([FromHeader] AuthenticationData authenticationData, int start, int limit)
+        public async Task<IActionResult> HitCounts([FromHeader] AuthenticationData authData, int start, int limit)
         {
             try
             {
+
+                var authResult = myClass.AuthenticateHeader(authData);
+
+                if (!authResult.Item1) return Unauthorized(new { authResult.Item1, authResult.Item2 });
+
                 if (limit == 0) limit = StatsData.Count;
 
                 if (limit >= StatsData.Count) limit = StatsData.Count;

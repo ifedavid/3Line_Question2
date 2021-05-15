@@ -81,10 +81,17 @@ namespace Question2.Controllers
 
         [Route("card-scheme/verify/{cardNumber}")]
         [HttpGet]
-        public async Task<IActionResult> VerifyCard([FromHeader] AuthenticationData authData, string cardNumber)
+        public async Task<IActionResult> VerifyCard([FromHeader] string authorization, [FromHeader] string timeStamp, [FromHeader] string appKey, string cardNumber)
         {
             try
             {
+                AuthenticationData authData = new AuthenticationData
+                {
+                    Authorization = authorization,
+                    TimeStamp = timeStamp,
+                    AppKey = appKey
+
+                };
 
                 var authResult = myClass.AuthenticateHeader(authData);
 
@@ -115,10 +122,17 @@ namespace Question2.Controllers
 
         [Route("card-scheme/stats")]
         [HttpGet]
-        public async Task<IActionResult> HitCounts([FromHeader] AuthenticationData authData, int start, int limit)
+        public async Task<IActionResult> HitCounts([FromHeader] string authorization, [FromHeader] string timeStamp, [FromHeader] string appKey, int start, int limit)
         {
             try
             {
+                AuthenticationData authData = new AuthenticationData
+                {
+                    Authorization = authorization,
+                    TimeStamp = timeStamp,
+                    AppKey = appKey
+
+                };
 
                 var authResult = myClass.AuthenticateHeader(authData);
 
@@ -174,13 +188,13 @@ namespace Question2.Controllers
     public class AuthenticationData
     {
         [Required]
-        public string Authorization = "3line 4n+F7tDHDaFCoPkDDCtHMX6fvNIolyzMLFONT5c4XSYBg7VYFg1uMDYW7b3wDOs+rKL4QjaY2A100Jufsg1XFA==";
+        public string Authorization { get; set; }
 
         [Required]
-        public string TimeStamp = "1617953042";
+        public string TimeStamp { get; set; }
 
         [Required]
-        public string AppKey = "test_20191123132233";
+        public string AppKey { get; set; }
 
     }
 }
